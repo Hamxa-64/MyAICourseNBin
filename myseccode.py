@@ -3,7 +3,6 @@ CityLongitude = 47.677
 IsCapital = False
 CityZipCode = 467
 
-
 #print along with labels 
 print("CityName: ", CityName)
 print("CiyLongitude: ", CityLongitude)
@@ -31,5 +30,7 @@ print("Hello - World - " + Name)
 Age = int(input("Please enter your Age:  "))
 print("your Age: ", Age)
 
-Height = float(input("Please enter your height:  "))
+Height = float(input("Please enter your Height:  "))
 print("your Height: ", Height)
+
+

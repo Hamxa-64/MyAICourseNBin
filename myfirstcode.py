@@ -11,4 +11,3 @@ print(type(Bookprice))
 Booktitle = "zerotwoone"
 print(Booktitle)
 print(type(Booktitle))
-
