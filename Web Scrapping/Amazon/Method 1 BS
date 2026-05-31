@@ -1,0 +1,32 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.amazon.com/gp/browse.html?node=6563140011&ref_=nav_em_amazon_smart_home_0_2_8_2"
+
+# Realistic headers to mimic a real browser
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.9"
+}
+
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Amazon dynamically changes classes, but standard product blocks usually look like this:
+    products = soup.find_all('div', {'data-component-type': 's-search-result'})
+    
+    if not products:
+        print("BeautifulSoup was likely blocked or layout changed. Try Selenium.")
+    
+    for product in products:
+        title_element = product.find('h2')
+        price_element = product.find('span', {'class': 'a-price-whole'})
+        
+        title = title_element.text.strip() if title_element else "No Title"
+        price = price_element.text.strip() if price_element else "No Price"
+        
+        print(f"Product: {title} | Price: {price}")
+else:
+    print(f"Failed to fetch page. Status Code: {response.status_code}")
